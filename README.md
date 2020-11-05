@@ -1,4 +1,5 @@
 # practise
 helloooo
 
-3rj gv
+def f(x):
+  return x*2
