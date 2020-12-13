@@ -11,29 +11,19 @@ print(steel.head(20))
 
 # write function to plot rankings over time for 1 roller coaster here:
 def roller_coaster_ranking(name, park, data):
-  find_rank = data[(data["Name"] == name) and (data["Park"] == park)]
+  find_rank = data[(data["Name"] == name) & (data["Park"] == park)]
   x_axis = find_rank["Year of Rank"]
   y_axis = find_rank["Rank"]
   ax = plt.subplot()
-  plt.plot(x_axis, y_axis)
+  plt.plot(x_axis, y_axis, marker = "o")
   plt.xlabel("Year")
   plt.ylabel("Rank")
   plt.title("Rank of " + str(name) + " vs Year")
   ax.set_xticks(x_axis.values)
   ax.set_yticks(y_axis.values)
-  #ax.set_xticklabels(x_axis)
-  #ax.invert_yaxis()
+  ax.invert_yaxis()
   return plt.show()
-
 roller_coaster_ranking("El Toro", "Six Flags Great Adventure", wood)
-
-
-
-
-
-
-
-
 
 plt.clf()
 
