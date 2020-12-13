@@ -75,19 +75,24 @@ n_ranking(4, wood)
 plt.clf()
 
 # load roller coaster data here:
-
-
+captain_coaster = pd.read_csv("roller_coasters.csv")
+print(captain_coaster.head())
 
 # write function to plot histogram of column values here:
+def plot_hist(name, data):
+  if name == "height":
+    heights = data[data["height"] <= 140]
+    value = heights[name].dropna()
+  else:
+    value = data[name].dropna()
+  plt.hist(value, bins = 15)
+  plt.legend()
+  plt.title(name.title() + " Histogram")
+  plt.xlabel(name.title())
+  plt.ylabel("Count")
+  return plt.show()
 
-
-
-
-
-
-
-
-
+plot_hist("speed", captain_coaster)
 
 plt.clf()
 
