@@ -52,15 +52,23 @@ two_roller_coaster_ranking("El Toro", "Six Flags Great Adventure", "Boulder Dash
 plt.clf()
 
 # write function to plot top n rankings over time here:
+def n_ranking(n, data):
+  find_rank = data[data["Rank"] <= n]
+  for coaster in set(find_rank["Name"]):
+    coaster_rankings = find_rank[find_rank['Name'] == coaster]
+    ax = plt.subplot()
+    x_axis = coaster_rankings["Year of Rank"]
+    y_axis = coaster_rankings["Rank"]
+    plt.plot(x_axis, y_axis, marker = "o", label=coaster)
+  plt.xlabel("Year")
+  plt.ylabel("Rank")
+  plt.title("Top " + str(n) + " Coasters")
+  ax.invert_yaxis()
+  ax.set_yticks(range(1, n+1))
+  plt.legend()
+  return plt.show()
 
-
-
-
-
-
-
-
-
+n_ranking(4, wood)
 
 plt.clf()
 
