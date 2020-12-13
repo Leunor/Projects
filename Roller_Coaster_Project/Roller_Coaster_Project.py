@@ -59,13 +59,15 @@ def n_ranking(n, data):
     ax = plt.subplot()
     x_axis = coaster_rankings["Year of Rank"]
     y_axis = coaster_rankings["Rank"]
-    plt.plot(x_axis, y_axis, marker = "o", label=coaster)
+    plt.plot(x_axis, y_axis, marker = "o",label=coaster)
   plt.xlabel("Year")
   plt.ylabel("Rank")
   plt.title("Top " + str(n) + " Coasters")
   ax.invert_yaxis()
   ax.set_yticks(range(1, n+1))
-  plt.legend()
+  box = ax.get_position()
+  ax.set_position([box.x0, box.y0, box.width * 0.8, box.height])
+  ax.legend(loc='center left', bbox_to_anchor=(1.0, 0.5))
   return plt.show()
 
 n_ranking(4, wood)
