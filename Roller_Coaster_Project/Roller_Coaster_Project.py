@@ -1,4 +1,4 @@
-import seaborn
+import codecademylib3_seaborn
 import pandas as pd
 import matplotlib.pyplot as plt
 
@@ -119,6 +119,7 @@ def operate_status(data):
   num_closed = data[data.status == 'status.closed.definitely']
   count_operating = [len(num_operating), len(num_closed)]
   plt.pie(count_operating, autopct='%0.1f%%', labels=['Operating','Closed'])
+  #plt.figure(figsize=[10,10])
   plt.title("Operating vs Closed")
   plt.legend()
   plt.axis('equal')
@@ -138,6 +139,7 @@ def scatter_plot(data, column1, column2):
     col1 = data[column1]
     col2 = data[column2]
   ax = plt.subplot()
+  plt.figure(figsize=[10,8])
   plt.scatter(col1, col2)
   plt.xlabel(column1.title())
   plt.ylabel(column2.title())
@@ -145,5 +147,24 @@ def scatter_plot(data, column1, column2):
   return plt.show()
 
 scatter_plot(captain_coaster, 'speed', 'height')
+
+plt.clf()
+
+#Most Popular Seats
+def seating(data):
+  clean_data = data.dropna()
+  seat_type = clean_data['seating_type'].unique()
+  pie_plot = []
+  for i in seat_type:
+    value = clean_data[clean_data['seating_type'] == i]
+    pie_plot.append(len(value))
+  plt.figure(figsize=[10,10])
+  plt.pie(pie_plot, autopct='%0.1f%%')
+  plt.axis('equal')
+  plt.title('Distribution of Seat Types')
+  plt.legend(seat_type)
+  plt.show()
+
+seating(captain_coaster)
 
 plt.clf()
