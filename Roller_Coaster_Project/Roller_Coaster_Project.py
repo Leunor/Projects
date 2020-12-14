@@ -76,7 +76,7 @@ plt.clf()
 
 # load roller coaster data here:
 captain_coaster = pd.read_csv("roller_coasters.csv")
-print(captain_coaster.head())
+print(captain_coaster)
 
 # write function to plot histogram of column values here:
 def plot_hist(name, data):
@@ -92,45 +92,58 @@ def plot_hist(name, data):
   plt.ylabel("Count")
   return plt.show()
 
-plot_hist("speed", captain_coaster)
+plot_hist("length", captain_coaster)
 
 plt.clf()
 
 # write function to plot inversions by coaster at a park here:
+def num_inversions(park, data):
+  park_coasters = data[data['park'].str.contains(park,case=False)].sort_values('num_inversions', ascending=False)
+  coaster_names = park_coasters['name']
+  number_inversions = park_coasters['num_inversions']
+  ax = plt.subplot()
+  plt.bar(range(len(number_inversions)),number_inversions)
+  plt.xlabel("Roller Coaster")
+  plt.ylabel("Number of Inversions")
+  ax.set_xticks(range(len(coaster_names)))
+  ax.set_xticklabels(coaster_names, rotation=90)
+  return plt.show()
 
-
-
-
-
-
-
-
-
+num_inversions('Holiday Park', captain_coaster)
 
 plt.clf()
 
 # write function to plot pie chart of operating status here:
+def operate_status(data):
+  num_operating = data[data.status == 'status.operating']
+  num_closed = data[data.status == 'status.closed.definitely']
+  count_operating = [len(num_operating), len(num_closed)]
+  plt.pie(count_operating, autopct='%0.1f%%', labels=['Operating','Closed'])
+  plt.title("Operating vs Closed")
+  plt.legend()
+  plt.axis('equal')
+  return plt.show()
 
-
-
-
-
-
-
-
-
+operate_status(captain_coaster)
 
 plt.clf()
 
 # write function to create scatter plot of any two numeric columns here:
+def scatter_plot(data, column1, column2):
+  if column1 != 'height' and column2 != 'height':
+    col1 = data[column1]
+    col2 = data[column2]
+  else:
+    data = data[data['height'] < 140]
+    col1 = data[column1]
+    col2 = data[column2]
+  ax = plt.subplot()
+  plt.scatter(col1, col2)
+  plt.xlabel(column1.title())
+  plt.ylabel(column2.title())
+  plt.title(column1 + " vs " + column2)
+  return plt.show()
 
-
-
-
-
-
-
-
-
+scatter_plot(captain_coaster, 'speed', 'height')
 
 plt.clf()
